@@ -1,0 +1,42 @@
+syntax = "proto3";
+package samplepb;
+
+// コード生成時のGoのパッケージ名
+option go_package = "github.com/yumenosora/tora-lab-learning/api/grpc-gen/samplepb";
+
+// 名前の通り一つのサービスを表す(service)
+service Sample {
+	// rpcで定義されるのが実質的なインターフェース
+	rpc GetUsers (UserSearchRequest) returns (UsersResponse) {}
+	rpc CreateUser (NewUser) returns (User) {}
+	rpc DeleteUser (DeleteRequest) returns (DeleteResponse) {}
+}
+
+message UserSearchRequest {
+	string name = 1;
+	string birthdayFrom = 2;
+	string birthdayTo = 3;
+}
+
+message UsersResponse {
+	repeated User users = 1;
+}
+
+message User {
+	uint32 id = 1;
+	string name = 2;
+	string birthday = 3;
+}
+
+message NewUser {
+	string name = 1;
+	string birthday = 2;
+}
+
+message DeleteRequest {
+	uint32 id = 1;
+}
+
+message DeleteResponse {
+	bool success = 1;
+}
